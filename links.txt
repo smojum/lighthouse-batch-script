@@ -1,0 +1,2 @@
+/
+/search?initialSearch=true&q=fleece

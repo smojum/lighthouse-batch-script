@@ -1,0 +1,17 @@
+{
+  "name": "lighthouse-batch-script",
+  "version": "1.0.0",
+  "description": "Generate lighthouse report for more than one link together",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Santanu Mojumder",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^2.9.0",
+    "lighthouse": "^4.3.1",
+    "shelljs": "^0.7.6"
+  }
+}
