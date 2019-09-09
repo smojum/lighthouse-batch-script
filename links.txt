@@ -1,2 +1,11 @@
 /
 /search?initialSearch=true&q=fleece
+/shop/womens-sale/S-y5c-ytq-xec?cm_re=lec-_-sale-_-global-_-glbnv-salewomens-_-20180427-_-txt
+/shop/womens-swimsuits/-/N-fxm?cm_re=lec-_-swim-_-global-_-glbnv-womens-swimsuits-_-20160316-_-txt
+/shop/womens-coats-jackets/-/N-fyc?cm_re=lec-_-wms-_-global-_-glbnv-coats-_-20160316-_-txt
+/shop/womens/-/N-fxlZkow?cm_re=lec-_-wms-_-global-_-glbnv-all-wms-_-20180525-_-txt
+/shop/womens-tops/-/N-kwb?cm_re=lec-_-wms-_-global-_-glbnv-tops-_-20180719-_-txt
+/products/womens-lightweight-fleece-jacket/id_331346
+/products/womens-flannel-shirt/id_315905
+/products/womens-swimmini-swim-skirt/id_314025
+/products/womens-supima-cotton-cardigan-sweater/id_314706
