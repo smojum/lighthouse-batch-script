@@ -38,10 +38,10 @@ function execute(options) {
         const cmd = `"${site.url}" --output json${htmlOut}${csvOut} --output-path "${outputPath}" ${chromeFlags} ${customParams}`;
 
         log(`${prefix}Lighthouse analyzing '${site.url}'`);
-        log(cmd);
+        log("output path: " + outputPath);
         const outcome = exec(`${lhScript} ${cmd}`);
         const summary = updateSummary(filePath, site, outcome, options);
-        postDataToSave(summary, filePath)
+        postDataToSave(summary, filePath, outputPath);
         if (summary.error) console.warn(`${prefix}Lighthouse analysis FAILED for ${summary.url}`);
         else log(`${prefix}Lighthouse analysis of '${summary.url}' complete with score ${summary.score}`);
 
@@ -53,13 +53,13 @@ function execute(options) {
     fs.writeFileSync(summaryPath, JSON.stringify(reports), 'utf8')
 }
 
-function postDataToSave(summary, filePath) {
-    const http = require('http')
-    const report = JSON.parse(fs.readFileSync(filePath))
-    log("FetchTime: " + report.fetchTime)
-    summary.runTime = report.fetchTime
-    const data = JSON.stringify(summary)
-    log("Data to be posted: " + data)
+function postDataToSave(summary, filePath, outputPath) {
+    const http = require('http');
+    const report = JSON.parse(fs.readFileSync(filePath));
+    var htmlReport = fs.readFileSync(outputPath + '.report.html', 'utf8');
+    summary.html = encodeURI(htmlReport);
+    summary.runTime = report.fetchTime;
+    const data = JSON.stringify(summary);
     const options = {
         hostname: 'localhost',
         port: 8080,
@@ -69,20 +69,20 @@ function postDataToSave(summary, filePath) {
             'Content-Type': 'application/json',
             'Content-Length': data.length
         }
-    }
+    };
 
     const req = http.request(options, (res) => {
-        log(`statusCode: ${res.statusCode}`)
+        log(`statusCode: ${res.statusCode}`);
 
         res.on('data', (d) => {
             process.stdout.write(d)
         })
-    })
+    });
 
     req.on('error', (error) => {
         console.error(error)
-    })
-    req.write(data)
+    });
+    req.write(data);
     req.end()
 }
 
