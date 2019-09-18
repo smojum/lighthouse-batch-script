@@ -56,7 +56,12 @@ function execute(options) {
 function postDataToSave(summary, filePath, outputPath) {
     const http = require('http');
     const report = JSON.parse(fs.readFileSync(filePath));
-    var htmlReport = fs.readFileSync(outputPath + '.report.html', 'utf8');
+    var AdmZip = require('adm-zip');
+    var zip = new AdmZip();
+    zip.addLocalFile(outputPath + '.report.html');
+    const htmlReport = zip.toBuffer().toString('base64');;
+    console.log(htmlReport)
+    // const htmlReport = fs.readFileSync(outputPath + '.report.html', 'utf8');
     summary.html = encodeURI(htmlReport);
     summary.runTime = report.fetchTime;
     const data = JSON.stringify(summary);
