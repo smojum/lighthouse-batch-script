@@ -6,6 +6,6 @@ do
 ./cli.js -c -h -v -d https://le-int-c.landsend.com -f links.txt; 
 ./cli.js -c -h -v -d https://le-qas-a.landsend.com -f links.txt; 
 ./cli.js -c -h -v -d https://www.landsend.com -f links.txt; 
-sleep 300;
+sleep 600;
 done
 
