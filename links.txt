@@ -1,3 +1,3 @@
-/search?initialSearch=true&q=fleece
+/search/S-xea?initialSearch=true&q=fleece
 /shop/womens-sale/S-y5c-ytq-xec?cm_re=lec-_-sale-_-global-_-glbnv-salewomens-_-20180427-_-txt
 /products/womens-fleece-jacket/id_253846?attributes=12323
