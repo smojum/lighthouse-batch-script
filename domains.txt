@@ -1,0 +1,5 @@
+https://www.landsend.com
+https://origin-m1-www.landsend.com
+https://origin-d1-www.landsend.com
+https://le-qas-a.landsend.com
+https://le-int-c.landsend.com

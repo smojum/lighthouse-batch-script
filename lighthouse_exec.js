@@ -34,12 +34,12 @@ function launchChromeAndRunLighthouse(url, opts, config = null) {
                 };
                 console.log(metrics)
                 let htmlName = Math.random().toString(36).substring(7) + "-lighthouse-report.html";
-                fs.writeFile(htmlname, JSON.stringify(results.report), function (err) {
+                fs.writeFile(htmlName, JSON.stringify(results.report), function (err) {
                     if (err) {
                         return console.log(err);
                     }
                 });
-                save(metrics, htmlname)
+                save(metrics, htmlName)
             })
         });
     });
