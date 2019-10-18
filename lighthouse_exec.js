@@ -24,22 +24,23 @@ function launchChromeAndRunLighthouse(url, opts, config = null) {
     return chromeLauncher.launch({chromeFlags: opts.chromeFlags}).then(chrome => {
         opts.port = chrome.port;
         return lighthouse(url, opts, config).then(results => {
+            let metrics = {
+                url: url,
+                runTime: results.lhr.fetchTime,
+                firstContentfulPaint: results.lhr.audits["first-contentful-paint"].numericValue,
+                interactive: results.lhr.audits["interactive"].numericValue,
+                speedIndex: results.lhr.audits["speed-index"].numericValue,
+            };
+            console.log(metrics)
+            let htmlName =  "lighthouse-report-" + Math.random().toString(36).substring(7) + ".html";
+            fs.writeFile(htmlName, results.report, function (err) {
+                if (err) {
+                    return console.log(err);
+                }
+            });
+            save(metrics, htmlName)
             return chrome.kill().then(() => {
-                let metrics = {
-                    url: url,
-                    runTime: results.lhr.fetchTime,
-                    firstContentfulPaint: results.lhr.audits["first-contentful-paint"].numericValue,
-                    interactive: results.lhr.audits["interactive"].numericValue,
-                    speedIndex: results.lhr.audits["speed-index"].numericValue,
-                };
-                console.log(metrics)
-                let htmlName = Math.random().toString(36).substring(7) + "-lighthouse-report.html";
-                fs.writeFile(htmlName, JSON.stringify(results.report), function (err) {
-                    if (err) {
-                        return console.log(err);
-                    }
-                });
-                save(metrics, htmlName)
+                console.log("Finishing up for " + url)
             })
         });
     });
