@@ -31,14 +31,11 @@ function launchChromeAndRunLighthouse(url, opts, config = null) {
                 interactive: results.lhr.audits["interactive"].numericValue,
                 speedIndex: results.lhr.audits["speed-index"].numericValue,
             };
-            console.log(metrics)
-            let htmlName =  "lighthouse-report-" + Math.random().toString(36).substring(7) + ".html";
-            fs.writeFile(htmlName, results.report, function (err) {
-                if (err) {
-                    return console.log(err);
-                }
-            });
-            save(metrics, htmlName)
+            var zip = new require('node-zip')();
+            zip.file('lhr.html', results.report);
+            metrics.html = zip.generate({base64:true,compression:'DEFLATE'});
+            console.log(metrics);
+            save(metrics)
             return chrome.kill().then(() => {
                 console.log("Finishing up for " + url)
             })
@@ -46,13 +43,8 @@ function launchChromeAndRunLighthouse(url, opts, config = null) {
     });
 }
 
-function save(metrics, htmlName) {
+function save(metrics) {
     const http = require('http');
-    var AdmZip = require('adm-zip');
-    var zip = new AdmZip();
-    zip.addLocalFile(htmlName);
-    const htmlReport = zip.toBuffer().toString('base64');
-    metrics.html = encodeURI(htmlReport);
     const data = JSON.stringify(metrics);
     const options = {
         hostname: 'localhost',
