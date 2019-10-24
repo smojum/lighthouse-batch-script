@@ -1,8 +1,10 @@
 {
   "name": "lighthouse-batch-script",
   "version": "1.0.0",
+  "repository": "https://github.com/smojum/lighthouse-batch-script",
   "description": "Generate lighthouse report for more than one link together",
-  "main": "index.js",
+  "main": "lighthouse_exec.js",
+  "bin": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,11 +12,17 @@
   "author": "Santanu Mojumder",
   "license": "MIT",
   "dependencies": {
-    "adm-zip": "^0.4.13",
     "commander": "^2.9.0",
     "lighthouse": "^5.4.0",
     "node-zip": "^1.1.1",
     "shelljs": "^0.7.6",
     "chrome-launcher": "^0.11.2"
+  },
+  "pkg": {
+    "assets": [
+      "node_modules/lighthouse/**/*.html",
+      "node_modules/lighthouse/**/*.js",
+      "node_modules/lighthouse/**/*.css"
+    ]
   }
 }
