@@ -41,7 +41,6 @@ function launchChromeAndRunLighthouse(url, opts, config = null) {
             var zip = new require('node-zip')();
             zip.file('lhr.html', results.report);
             metrics.html = zip.generate({base64:true,compression:'DEFLATE'});
-            console.log(metrics);
             save(metrics)
             return chrome.kill().then(() => {
                 console.log("Finishing up for " + url)
