@@ -7,23 +7,9 @@ const fs = require('fs');
 const opts = {
     output: 'html',
     chromeFlags: [
-        // Disable built-in Google Translate service
-        '--disable-features=TranslateUI',
-        // Disable all chrome extensions entirely
-        // '--disable-extensions',
-        // Disable various background network services, including extension updating,
-        //   safe browsing service, upgrade detector, translate, UMA
-        // '--disable-background-networking',
-        // Disable syncing to a Google account
-        // '--disable-sync',
-        // Disable reporting to UMA, but allows for collection
-        '--metrics-recording-only',
-        // Disable installation of default apps on first run
-        // '--disable-default-apps',
-        // Mute any audio
-        '--mute-audio',
-        // Skip first run wizards
-        '--no-first-run',
+        '--no-sandbox', 
+        '--headless', 
+        '--disable-gpu'
     ],
     logLevel: 'info',
     onlyCategories: ['performance', 'seo'],
@@ -40,7 +26,7 @@ function execute(options) {
 
 function launchChromeAndRunLighthouse(url, opts, config = null) {
     return chromeLauncher.launch({
-        ignoreDefaultFlags: true,
+        ignoreDefaultFlags: false,
         chromeFlags: opts.chromeFlags
     }).then(chrome => {
         opts.port = chrome.port;
