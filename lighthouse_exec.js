@@ -13,7 +13,7 @@ const opts = {
         '--disable-gpu'
     ],
     logLevel: 'info',
-    onlyCategories: ['performance', 'seo'],
+    //onlyCategories: ['performance', 'seo'],
     view: true
 };
 const domains = fs.readFileSync('domains.txt').toString().split('\n');
@@ -34,9 +34,10 @@ async function execute(options) {
 }
 
 async function runLighthouse(domain, path, opts, config = null) {
+    const chrome;
     try {
         const url = domain + path;
-        const chrome = await chromeLauncher.launch({ignoreDefaultFlags: false, chromeFlags: opts.chromeFlags});
+        chrome = await chromeLauncher.launch({ignoreDefaultFlags: false, chromeFlags: opts.chromeFlags});
         opts.port = chrome.port;
         const results = await lighthouse(url, opts, config);
         let metrics = {
@@ -51,9 +52,10 @@ async function runLighthouse(domain, path, opts, config = null) {
         zip.file('lhr.html', results.report);
         metrics.html = zip.generate({base64: true, compression: 'DEFLATE'});
         save(metrics);
-        await chrome.kill();
     } catch (error) {
         console.log(error)
+    } finally {
+        await chrome.kill();
     }
 }
 
